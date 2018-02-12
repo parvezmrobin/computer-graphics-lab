@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-grid.css">
+    <link rel="stylesheet" href="/stylesheets/floating-labels.css">
+    <link rel="stylesheet" href="/stylesheets/matrix.css">
+    <link rel="stylesheet" href="/stylesheets/sticky-footer.css">
+
+</head>
+<body>
+
+
+
+    {% include '../partials/navbar.twig' %}
+
+    {% block content %}{% endblock %}
+
+    {% include '../partials/footer.twig' %}
+
+<script src="/javascripts/jquery-3.3.1.js"></script>
+<script src="/javascripts/bootstrap.bundle.js"></script>
+<script src="/javascripts/bootstrap.js"></script>
+<script src="/javascripts/vue.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#year').text('© ' + (new Date()).getFullYear())
+        })
+    </script>
+
+{% block script %}{% endblock %}
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+.bb {
+    background-color: #007bff;
+    color: transparent;
+    line-height: 1rem;
+    box-shadow: .25rem .25rem .25rem gray;
+    cursor: pointer;
+}
+
+.bb:hover {
+    box-shadow: .375rem .375rem .375rem darkslategray;
+    background-color: #005bff!important;
+    border-color: #005bff;
+    color: #fff;
+}
+
+.tt {
+    color: transparent;
+    background-color: #f5f5f5;
+}
+
+.tt:hover {
+    cursor: pointer;
+    color: #17a2b8;
+}
+
+.table td {
+    border: 1px solid #dee2e6;
+    text-align: center;
+    padding: .25rem;
+}
+
+.table td.marker {
+    border: none;
+}
+
+.table td .box {
+    padding-top: 100%;
+    position: relative;
+}
+
+.table td .text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
