@@ -4,12 +4,12 @@
     <tr v-for="(row, i) in plane" :id="dim-i">
         <td class="marker text-primary">
             <div class="box">
-                <div class="text">{{ dim-i-1 }}</div>
+                <div class="text">{{ dim-i }}</div>
             </div>
         </td>
         <td v-for="(cell, j) in row" :class="{bb: cell, tt:!cell}" v-on:click="cellClicked(dim-i, j)">
             <div class="box">
-                <div class="text">{{ j + ',' + (dim-i-1) }}</div>
+                <div class="text">{{ j + ',' + (dim-i) }}</div>
             </div>
         </td>
     </tr>
@@ -19,9 +19,9 @@
                 <div class="text"></div>
             </div>
         </td>
-        <td v-for="i in dim" class="marker text-primary">
+        <td v-for="i in (dim+1)" class="marker text-primary">
             <div class="box">
-                <div class="text">{{ i-1 }}</div>
+                <div class="text">{{ i - 1 }}</div>
             </div>
         </td>
     </tr>

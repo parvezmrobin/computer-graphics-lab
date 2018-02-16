@@ -1,27 +1,30 @@
 {% extends '../layouts/app.twig' %}
 
 {% block content %}
-
     <div class="container" id="vm" xmlns:v-on="http://www.w3.org/1999/xhtml">
         <div class="row">
             <div class="col-md-8">
                 {% include '../partials/matrix.twig' %}
             </div>
 
-            {% verbatim %}
+
             <div class="col-md-4">
                 <div class="input-form needs-validation">
-                    <div class="form-label-group row">
-                        <input type="number" min="0" :max="dim" id="r" class="form-control" placeholder="Value of r"
-                               v-model.number="r" required
-                               v-on:keyup.enter="draw"
-                               v-on:focus="focused($event)"
-                               v-on:blur="blurred"
-                        >
-                        <label for="r">Value of r</label>
-                        <div class="invalid-feedback">r must be a positive number less than 21</div>
-                        <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
-                    </div>
+                    {% for el in ['x1', 'y1', 'x2', 'y2'] %}
+                        <div class="form-label-group row">
+                            <input type="number" min="1" :max="dim" id="{{ el }}" class="form-control"
+                                   placeholder="Value of {{ el }}"
+                                   v-model.number="{{ el }}" required
+                                   v-on:keyup.enter="draw"
+                                   v-on:focus="focused($event)"
+                                   v-on:blur="blurred"
+                            >
+                            <label for="{{ el }}">Value of {{ el }}</label>
+                            <div class="invalid-feedback">{{ el }} must be a positive number less than 21</div>
+                            <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
+                        </div>
+
+                    {% endfor %}
 
                     <div class="form-group row">
                         <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">Draw</button>
@@ -33,11 +36,10 @@
                     Or click anywhere in the matrix to draw an arc of corresponding radius.
                 </div>
             </div>
-            {% endverbatim %}
+
         </div>
 
     </div>
-
 {% endblock %}
 
 {% block script %}
@@ -53,44 +55,56 @@
                 el: '#vm',
                 data: {
                     plane: [[]],
-                    r: undefined,
+                    x1: undefined,
+                    y1: undefined,
+                    x2: undefined,
+                    y2: undefined,
                     dim: 20,
                     $form: undefined
                 },
                 methods: {
-                    draw: function () {
-                        if (this.r < 0) return;
+                    showErrorAlert: function () {
 
-                        let x = 0;
-                        let y = this.r;
-                        let d = 3 - 2 * y;
+                    },
+                    draw: function () {
+                        const dx = this.x2 - this.x1;
+                        const dy = this.y2 - this.y1;
+                        const d2 = 2 * dy;
+                        const d1 = d2 - 2 * dx;
+                        let d = d2 - dx;
+                        let x = this.x1, y = this.y1;
 
                         this.resetPlane();
+                        if (dy/dx < 0) this.showErrorAlert();
 
-                        while (x <= y) {
-                            this.plane[this.dim - y][x] = 1;
-                            console.log(d, x, y);
+                        this.plane[this.dim - y][x] = 1;
+                        if (!dy) return;
+
+                        while (!(x === this.x2 && y === this.y2)){
                             if (d < 0) {
-                                d = d + 4 * x + 6;
-                            } else {
-                                d = d + 4 * (x - y) + 10;
-                                y--;
+                                d += d2;
                             }
+                            else {
+                                y++;
+                                d += d1;
+                            }
+
                             x++;
+                            this.plane[this.dim - y][x] = 1;
                         }
 
                         $htmlBody.animate({
-                            scrollTop: $("#" + (this.r + 1)).offset().top
+                            scrollTop: $("#" + (this.y2 + 1)).offset().top
                         }, 500);
                     },
                     cellClicked: function (row) {
-                        this.r = row;
-                        this.draw();
+                        // this.r = row;
+                        // this.draw();
                     },
                     resetPlane: function () {
                         this.plane = [];
                         for (let i = 0; i <= this.dim; i++)
-                            this.plane.push(new Array(this.dim + 1).fill(0));
+                            this.plane.push(new Array(this.dim+1).fill(0));
                     },
                     focused: function (e) {
                         $form.addClass('was-validated');
