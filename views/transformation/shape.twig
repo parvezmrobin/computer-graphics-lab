@@ -1,0 +1,42 @@
+{% extends '../layouts/app.twig' %}
+
+{% block content %}
+
+    <div class="container" id="vm">
+        <div class="row">
+            <div class="col-md-8">
+                {% include '../partials/matrix.twig' %}
+            </div>
+
+            <div class="col-md-4">
+                <div class="input-form needs-validation">
+                    {% for coordinates in [['x1', 'y1'], ['x2', 'y2'], ['x3', 'y3'], ['x4', 'y4']] %}
+                        <div class="form-label-group row">
+                            {% for el in coordinates %}
+                                <div class="col-md-6">
+                                    <input type="number" min="1" :max="dim" id="{{ el }}" class="form-control"
+                                           placeholder="Value of {{ el }}"
+                                           v-model.number="{{ el }}" required
+                                           v-on:keyup.enter="draw"
+                                           v-on:focus="focused($event)"
+                                           v-on:blur="blurred"
+                                    >
+                                    <label for="{{ el }}">Value of {{ el }}</label>
+                                    <div class="invalid-feedback">{{ el }} must be a positive number less than 21</div>
+                                    <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+
+                    <div class="form-group row">
+                        <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">Draw</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

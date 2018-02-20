@@ -34,12 +34,12 @@ body {
     margin-bottom: 1rem;
 }
 
-.form-label-group > input,
-.form-label-group > label {
+.form-label-group input,
+.form-label-group label {
     padding: var(--input-padding-y) var(--input-padding-x);
 }
 
-.form-label-group > label {
+.form-label-group label {
     position: absolute;
     top: 0;
     left: 0;
@@ -51,6 +51,10 @@ body {
     border: 1px solid transparent;
     border-radius: .25rem;
     transition: all .1s ease-in-out;
+}
+
+.form-label-group div label{
+    left: calc(var(--input-padding-y) * 1.5)
 }
 
 .form-label-group input::-webkit-input-placeholder {
