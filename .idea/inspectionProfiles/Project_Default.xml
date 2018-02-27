@@ -4,7 +4,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="9">
+          <list size="11">
             <item index="0" class="java.lang.String" itemvalue=":id" />
             <item index="1" class="java.lang.String" itemvalue="v-on:click" />
             <item index="2" class="java.lang.String" itemvalue="v-for" />
@@ -14,6 +14,8 @@
             <item index="6" class="java.lang.String" itemvalue="v-on:keyup.enter" />
             <item index="7" class="java.lang.String" itemvalue="v-on:focus" />
             <item index="8" class="java.lang.String" itemvalue="v-on:blur" />
+            <item index="9" class="java.lang.String" itemvalue="v-if" />
+            <item index="10" class="java.lang.String" itemvalue="v-bind:class" />
           </list>
         </value>
       </option>

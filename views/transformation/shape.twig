@@ -2,10 +2,10 @@
 
 {% block content %}
 
-    <div class="container" id="vm">
+    <div class="container" id="vm" xmlns:v-on="http://www.w3.org/1999/xhtml">
         <div class="row">
             <div class="col-md-8">
-                {% include '../partials/matrix.twig' %}
+                {% include '../partials/co-ordinate.twig' %}
             </div>
 
             <div class="col-md-4">
@@ -30,8 +30,35 @@
 
                     {% endfor %}
 
-                    <div class="form-group row">
-                        <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">Draw</button>
+                    <div class="form-label-group row">
+                        <div class="col-md-12">
+                            <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">
+                                Draw
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-label-group row">
+
+                        <div class="col-md-6">
+                            <input type="number" id="deg" class="form-control"
+                                   placeholder="Degree"
+                                   v-model.number="deg" required
+                                   v-on:keyup.enter="draw"
+                                   v-on:focus="focused($event)"
+                                   v-on:blur="blurred"
+                            >
+                            <label for="deg">Degree</label>
+                            <div class="invalid-feedback">Degree must be a positive number less than 360</div>
+                            <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="rotate">
+                                Rotate
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -39,4 +66,90 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block script %}
+    <script src="/javascripts/mixins.js"></script>
+    <script>
+        (function () {
+            new Vue({
+                el: '#vm',
+                mixins: [HandlesQuadrantMixin],
+                data: {
+                    plane: [[]],
+                    dim: 10,
+                    lim: undefined,
+                    x1: undefined,
+                    y1: undefined,
+                    x2: undefined,
+                    y2: undefined,
+                    x3: undefined,
+                    y3: undefined,
+                    x4: undefined,
+                    y4: undefined,
+                    deg: undefined
+                },
+                methods: {
+                    isValidated: function () {
+                        return true;
+                    },
+
+                    draw: function () {
+                        if (!this.isValidated()) {
+                            this.showErrorAlert();
+                            return;
+                        }
+
+                        this.resetPlane();
+
+                        this.mark(this.x1, this.y1);
+                        this.mark(this.x2, this.y2);
+                        this.mark(this.x3, this.y3);
+                        this.mark(this.x4, this.y4);
+                    },
+                    rotate: function () {
+                        if (!this.isValidated()) {
+                            this.showErrorAlert();
+                            return;
+                        }
+                        const cos = Math.cos((Math.PI / 180) * this.deg);
+                        const sin = Math.sin((Math.PI / 180) * this.deg);
+
+                        this.resetPlane();
+
+                        let x, y;
+                        x = this.x1 * cos - this.y1 * sin;
+                        y = this.x1 * sin + this.y1 * cos;
+                        this.mark(x, y);
+
+                        x = this.x2 * cos - this.y2 * sin;
+                        y = this.x2 * sin + this.y2 * cos;
+                        this.mark(x, y);
+
+                        x = this.x3 * cos - this.y3 * sin;
+                        y = this.x3 * sin + this.y3 * cos;
+                        this.mark(x, y);
+
+                        x = this.x4 * cos - this.y4 * sin;
+                        y = this.x4 * sin + this.y4 * cos;
+                        this.mark(x, y);
+                    },
+                    mark: function (x, y) {
+                        x = Math.round(x);
+                        y = Math.round(y);
+                        this.plane[this.dim - y][x + this.dim] = 1;
+                    },
+                    focused: function () {
+
+                    },
+                    blurred: function () {
+
+                    },
+                    showErrorAlert: function () {
+
+                    }
+                }
+            })
+        })()
+    </script>
 {% endblock %}

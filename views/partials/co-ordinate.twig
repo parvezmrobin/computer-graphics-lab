@@ -1,0 +1,22 @@
+{% verbatim %}
+<table class="table" id="co-ordinate">
+    <tbody>
+    <tr v-for="(row, i) in plane" :id="i+dim">
+        <td v-for="(cell, j) in row"
+            :class="{'marker text-primary': i===dim || j===dim, bb: cell, tt:!cell}">
+            <div class="box">
+                <div class="text" v-if="i<dim && j>dim">{{posX(j)+','+posY(i)}}</div>
+                <div class="text" v-if="i===dim && j<dim">{{negX(j)}}</div>
+                <div class="text" v-if="i===dim && j===dim">0,0</div>
+                <div class="text" v-if="i===dim && j>dim">+{{posX(j)}}</div>
+                <div class="text" v-if="i<dim && j<dim">{{negX(j)+','+posY(i)}}</div>
+                <div class="text" v-if="i>dim && j<dim">{{negX(j)+','+negY(i)}}</div>
+                <div class="text" v-if="i>dim && j>dim">{{posX(j)+','+negY(i)}}</div>
+                <div class="text" v-if="i<dim && j===dim">+{{posY(i)}}</div>
+                <div class="text" v-if="i>dim && j===dim"> {{negY(i)}}</div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+{% endverbatim %}
