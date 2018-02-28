@@ -79,15 +79,15 @@
                     plane: [[]],
                     dim: 10,
                     lim: undefined,
-                    x1: undefined,
-                    y1: undefined,
-                    x2: undefined,
-                    y2: undefined,
-                    x3: undefined,
-                    y3: undefined,
-                    x4: undefined,
-                    y4: undefined,
-                    deg: undefined
+                    x1: 1,
+                    y1: 1,
+                    x2: 6,
+                    y2: 3,
+                    x3: 5,
+                    y3: 5,
+                    x4: 2,
+                    y4: 6,
+                    deg: 0
                 },
                 methods: {
                     isValidated: function () {
@@ -107,6 +107,74 @@
                         this.mark(this.x3, this.y3);
                         this.mark(this.x4, this.y4);
                     },
+                    drawLine: function (x1, y1, x2, y2) {
+                        let angle = Math.atan((y2 - y1) / (x2 - x1));
+                        if (y1 > y2) {
+                            x1 = x1 + x2;
+                            x2 = x1 - x2;
+                            x1 = x1 - x2;
+
+                            y1 = y1 + y2;
+                            y2 = y1 - y2;
+                            y1 = y1 - y2;
+                        }
+                        const dx = x2 - x1;
+                        const dy = y2 - y1;
+                        let d2, d1, d, autoX, incX;
+                        if (angle > 0) {
+                            if (angle <= Math.PI / 4) {
+                                d2 = 2 * dy;
+                                d1 = d2 - 2 * dx;
+                                d = d2 - dx;
+                                autoX = true;
+                                incX = 1;
+                            } else {
+                                d2 = 2 * dx;
+                                d1 = d2 - 2 * dy;
+                                d = d2 - dy;
+                                autoX = false;
+                                incX = 1;
+                            }
+                        } else {
+                            if (-angle >= Math.PI / 4) {
+                                d2 = -2 * dx;
+                                d1 = d2 - 2 * dy;
+                                d = d2 - dy;
+                                autoX = false;
+                                incX = -1;
+                            } else {
+                                d2 = 2 * dy;
+                                d1 = d2 + 2 * dx;
+                                d = d2 + dx;
+                                autoX = true;
+                                incX = -1;
+                            }
+                        }
+                        let x = x1, y = y1;
+
+                        this.mark(x, y);
+
+                        while (!(x === x2 && y === y2)) {
+                            if (d < 0) {
+                                d += d2;
+                            }
+                            else {
+                                if (autoX) {
+                                    y++;
+                                } else {
+                                    x += incX;
+                                }
+                                d += d1;
+                            }
+
+                            if (autoX) {
+                                x += incX;
+                            } else {
+                                y++;
+                            }
+                            this.mark(x, y);
+                        }
+                    },
                     rotate: function () {
                         if (!this.isValidated()) {
                             this.showErrorAlert();
@@ -117,22 +185,16 @@
 
                         this.resetPlane();
 
-                        let x, y;
-                        x = this.x1 * cos - this.y1 * sin;
-                        y = this.x1 * sin + this.y1 * cos;
-                        this.mark(x, y);
+                        let x = [this.x1, this.x2, this.x3, this.x4];
+                        let y = [this.y1, this.y2, this.y3, this.y4];
+                        for (let i = 0; i < 4; i++) {
+                            x[i] = x[i] * cos - y[i] * sin;
+                            y[i] = x[i] * sin + y[i] * cos;
+                        }
 
-                        x = this.x2 * cos - this.y2 * sin;
-                        y = this.x2 * sin + this.y2 * cos;
-                        this.mark(x, y);
-
-                        x = this.x3 * cos - this.y3 * sin;
-                        y = this.x3 * sin + this.y3 * cos;
-                        this.mark(x, y);
-
-                        x = this.x4 * cos - this.y4 * sin;
-                        y = this.x4 * sin + this.y4 * cos;
-                        this.mark(x, y);
+                        for (let i = 1; i <= 4; i++) {
+                            this.drawLine(x[i - 1], y[i - 1], x[i % 4], y[i % 4]);
+                        }
                     },
                     mark: function (x, y) {
                         x = Math.round(x);
