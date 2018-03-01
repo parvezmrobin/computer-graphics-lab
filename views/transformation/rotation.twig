@@ -1,12 +1,141 @@
 {% extends '../layouts/app.twig' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
+    <div class="container" xmlns:v-on="http://www.w3.org/1999/xhtml">
+        <div class="row" id="vm">
             <div class="col-md-8">
                 <canvas id="plane"></canvas>
             </div>
+
+            <div class="col-md-4">
+                <div class="input-form needs-validation">
+
+                    <!--region (x0, y0)-->
+                    <div class="form-label-group row">
+                        <div class="col-md-6">
+                            <input type="number" id="x0" class="form-control"
+                                   placeholder="'Value of x0"
+                                   v-model.number="x0" required>
+                            <label for="x0">Value of x<sub>0</sub></label>
+                            <div class="invalid-feedback">x<sub>0</sub> is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" id="y0" class="form-control"
+                                   placeholder="'Value of y0"
+                                   v-model.number="y0" required>
+                            <label for="y0">Value of y<sub>0</sub></label>
+                            <div class="invalid-feedback">y<sub>0</sub> is required</div>
+                        </div>
+                    </div>
+                    <!--endregion-->
+
+                    <!--region (x1, y1)-->
+                    <div class="form-label-group row">
+                        <div class="col-md-6">
+                            <input type="number" id="x1" class="form-control"
+                                   placeholder="'Value of x1"
+                                   v-model.number="x1" required>
+                            <label for="x1">Value of x<sub>1</sub></label>
+                            <div class="invalid-feedback">x<sub>1</sub> is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" id="y1" class="form-control"
+                                   placeholder="'Value of y1"
+                                   v-model.number="y1" required>
+                            <label for="y1">Value of y<sub>1</sub></label>
+                            <div class="invalid-feedback">y<sub>1</sub> is required</div>
+                        </div>
+                        <!--endregion-->
+                    </div>
+                    <!--region (x2, y2)-->
+                    <div class="form-label-group row">
+                        <div class="col-md-6">
+                            <input type="number" id="x2" class="form-control"
+                                   placeholder="'Value of x2"
+                                   v-model.number="x2" required>
+                            <label for="x2">Value of x<sub>2</sub></label>
+                            <div class="invalid-feedback">x<sub>2</sub> is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" id="y2" class="form-control"
+                                   placeholder="'Value of y2"
+                                   v-model.number="y2" required>
+                            <label for="y2">Value of y<sub>2</sub></label>
+                            <div class="invalid-feedback">y<sub>2</sub> is required</div>
+                        </div>
+                        <!--endregion-->
+                    </div>
+                    <!--region (x3, y3)-->
+                    <div class="form-label-group row">
+                        <div class="col-md-6">
+                            <input type="number" id="x3" class="form-control"
+                                   placeholder="'Value of x3"
+                                   v-model.number="x3" required>
+                            <label for="x3">Value of x<sub>3</sub></label>
+                            <div class="invalid-feedback">x<sub>3</sub> is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" id="y3" class="form-control"
+                                   placeholder="'Value of y3"
+                                   v-model.number="y3" required>
+                            <label for="y3">Value of y<sub>3</sub></label>
+                            <div class="invalid-feedback">y<sub>3</sub> is required</div>
+                        </div>
+                        <!--endregion-->
+                    </div>
+                </div>
+
+                <div class="form-label-group row">
+                    <div class="col-md-12">
+                        <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">
+                            Draw
+                        </button>
+                    </div>
+                </div>
+
+                <!--region (h, k)-->
+                <div class="form-label-group row">
+                    <div class="col-md-6">
+                        <input type="number" id="h" class="form-control"
+                               placeholder="'Value of h"
+                               v-model.number="h" required>
+                        <label for="h">Value of h</label>
+                        <div class="invalid-feedback">h is required</div>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" id="k" class="form-control"
+                               placeholder="'Value of k"
+                               v-model.number="k" required>
+                        <label for="k">Value of k</label>
+                        <div class="invalid-feedback">k is required</div>
+                    </div>
+                </div>
+                <!--endregion-->
+
+                <div class="form-label-group row">
+
+                    <div class="col-md-6">
+                        <input type="number" id="deg" class="form-control"
+                               placeholder="Degree"
+                               v-model.number="deg" required
+                               v-on:keyup.enter="draw"
+                        >
+                        <label for="deg">Degree</label>
+                        <div class="invalid-feedback">Degree must be a positive number less than 360</div>
+                        <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="rotate">
+                            Rotate
+                        </button>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </div>
     </div>
 {% endblock %}
 

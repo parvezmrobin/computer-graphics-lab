@@ -9,34 +9,30 @@ window.chartColors = {
 };
 
 const color = Chart.helpers.color;
-let scatterChartData = {
-    datasets: [{
-        borderColor: window.chartColors.blue,
-        backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-        label: "Rotated Points",
-        data: [{
-            x: 1,
-            y: 1,
-        }, {
-            x: -2,
-            y: 7,
-        }, {
-            x: 6,
-            y: 6,
-        }, {
-            x: 5,
-            y: 2,
-        }, {
-            x: 1,
-            y: 1,
-        }]
+let center = {
+    borderColor: window.chartColors.red,
+    backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+    label: "Center Point",
+    data: [{
+        x: 0,
+        y: 0
     }]
 };
 
-window.onload = function () {
+let rotationPoints = {
+    borderColor: window.chartColors.blue,
+    backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+    label: "Rotation Points",
+    data: []
+};
+let data = {
+    datasets: [center, rotationPoints]
+};
+
+loadChart = function () {
     const plane = document.getElementById("plane").getContext('2d');
-    window.myScatter = Chart.Line(plane, {
-        data: scatterChartData,
+    window.chart = Chart.Line(plane, {
+        data: data,
         options: {
             title: {
                 display: true,
@@ -51,13 +47,15 @@ window.onload = function () {
                         display: true,
                     },
                     ticks: {
-                        beginAtZero: true
+                        suggestedMin: -10,
+                        suggestedMax: 10
                     }
                 }],
                 yAxes: [{
                     type: 'linear',
                     ticks: {
-                        beginAtZero: true,
+                        suggestedMin: -10,
+                        suggestedMax: 10
                     },
                     scaleLabel: {
                         labelString: 'Y axis',
@@ -76,14 +74,79 @@ window.onload = function () {
             },
             tooltips: {
                 callbacks: {
-                    label: function(tooltipItem, chart) {
+                    label: function (tooltipItem, chart) {
                         return `(${tooltipItem.xLabel}, ${tooltipItem.yLabel})`;
                     },
-                    title: function(tooltipItem, chart) {
-                        return 'Point';
+                    title: function (tooltipItem, chart) {
+                        return chart.datasets[tooltipItem[0].datasetIndex].label;
                     },
                 }
             }
         }
     });
 };
+
+/*
+* Vue JS part
+*/
+
+const vm = new Vue({
+    el: '#vm',
+    data: {
+        x0: 1, y0: 1, x1: 6, y1: 1, x2: 6, y2: 6, x3: 1, y3: 6,
+        h: 0,
+        k: 0,
+        deg: 0
+    },
+    methods: {
+        focused: function () {
+
+        },
+        blurred: function () {
+
+        },
+        toXyArray: function () {
+            const data = [];
+            data[0] = {x: this.x0, y: this.y0};
+            data[1] = {x: this.x1, y: this.y1};
+            data[2] = {x: this.x2, y: this.y2};
+            data[3] = {x: this.x3, y: this.y3};
+            data[4] = {x: this.x0, y: this.y0};
+
+            return data;
+        },
+        draw: function (points) {
+            if (points instanceof Array) {
+                chart.data.datasets[1].data = points
+            } else {
+                chart.data.datasets[1].data = this.toXyArray();
+            }
+
+            chart.update();
+        },
+        rotate: function () {
+            const cos = Math.cos((Math.PI / 180) * this.deg);
+            const sin = Math.sin((Math.PI / 180) * this.deg);
+
+            const xy = this.toXyArray();
+            const points = [];
+            for (let i = 0; i < xy.length; i++) {
+                let p = xy[i];
+
+                let x = p.x - this.h;
+                let y = p.y - this.k;
+                p.x = (cos * x - sin * y + this.h);
+                p.y = (sin * x + cos * y + this.k);
+                points.push(p);
+            }
+
+            chart.data.datasets[0].data[0] = {x: this.h, y: this.k};
+
+            this.draw(points);
+        }
+    },
+    mounted() {
+        rotationPoints.data = this.toXyArray();
+        loadChart();
+    }
+});
