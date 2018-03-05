@@ -93,10 +93,11 @@ loadChart = function () {
 const vm = new Vue({
     el: '#vm',
     data: {
-        x0: 1, y0: 1, x1: 6, y1: 1, x2: 6, y2: 6, x3: 1, y3: 6,
-        h: 0,
-        k: 0,
-        deg: 0
+        x0: undefined, y0: undefined, x1: undefined, y1: undefined,
+        x2: undefined, y2: undefined, x3: undefined, y3: undefined,
+        h: undefined,
+        k: undefined,
+        deg: undefined
     },
     methods: {
         focused: function () {

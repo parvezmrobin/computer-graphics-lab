@@ -8,6 +8,8 @@
             </div>
 
             <div class="col-md-4">
+                <h1 class="text-center" style="color: rgb(54, 162, 235);">Input Points</h1>
+                <hr>
                 <div class="input-form needs-validation">
 
                     <!--region (x0, y0)-->
@@ -83,56 +85,55 @@
                         </div>
                         <!--endregion-->
                     </div>
-                </div>
 
-                <div class="form-label-group row">
-                    <div class="col-md-12">
-                        <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">
-                            Draw
-                        </button>
+
+                    <div class="form-label-group row">
+                        <div class="col-md-12">
+                            <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="draw">
+                                Draw
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--region (h, k)-->
+                    <div class="form-label-group row">
+                        <div class="col-md-6">
+                            <input type="number" id="h" class="form-control"
+                                   placeholder="'Value of h"
+                                   v-model.number="h" required>
+                            <label for="h">Value of h</label>
+                            <div class="invalid-feedback">h is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" id="k" class="form-control"
+                                   placeholder="'Value of k"
+                                   v-model.number="k" required>
+                            <label for="k">Value of k</label>
+                            <div class="invalid-feedback">k is required</div>
+                        </div>
+                    </div>
+                    <!--endregion-->
+
+                    <div class="form-label-group row">
+
+                        <div class="col-md-6">
+                            <input type="number" id="deg" class="form-control"
+                                   placeholder="Degree"
+                                   v-model.number="deg" required
+                                   v-on:keyup.enter="draw"
+                            >
+                            <label for="deg">Degree</label>
+                            <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="rotate">
+                                Rotate
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <!--region (h, k)-->
-                <div class="form-label-group row">
-                    <div class="col-md-6">
-                        <input type="number" id="h" class="form-control"
-                               placeholder="'Value of h"
-                               v-model.number="h" required>
-                        <label for="h">Value of h</label>
-                        <div class="invalid-feedback">h is required</div>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="number" id="k" class="form-control"
-                               placeholder="'Value of k"
-                               v-model.number="k" required>
-                        <label for="k">Value of k</label>
-                        <div class="invalid-feedback">k is required</div>
-                    </div>
-                </div>
-                <!--endregion-->
-
-                <div class="form-label-group row">
-
-                    <div class="col-md-6">
-                        <input type="number" id="deg" class="form-control"
-                               placeholder="Degree"
-                               v-model.number="deg" required
-                               v-on:keyup.enter="draw"
-                        >
-                        <label for="deg">Degree</label>
-                        <div class="invalid-feedback">Degree must be a positive number less than 360</div>
-                        <div class="valid-feedback">Now click <b>Draw</b> or press <b>Enter</b></div>
-                    </div>
-
-
-                    <div class="col-md-6">
-                        <button class="btn btn-lg btn-primary btn-block" type="button" v-on:click="rotate">
-                            Rotate
-                        </button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
