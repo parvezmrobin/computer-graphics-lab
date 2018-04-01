@@ -1,0 +1,123 @@
+{% extends '../layouts/app.twig' %}
+
+{% block content %}
+
+    <div class="container" id="vm" xmlns:v-on="http://www.w3.org/1999/xhtml">
+        <div class="row">
+
+            <div class="col">
+                <h2>Line Points</h2>
+                <div class="input-form">
+                    <div class="form-label-group row">
+                        <!--region (x0, y0)-->
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="x0" class="form-control"
+                                       placeholder="'Value of x0"
+                                       v-model.number="x0" required>
+                                <label for="x0">Value of x<sub>0</sub></label>
+                                <div class="invalid-feedback">x<sub>0</sub> is required</div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="y0" class="form-control"
+                                       placeholder="'Value of y0"
+                                       v-model.number="y0" required>
+                                <label for="y0">Value of y<sub>0</sub></label>
+                                <div class="invalid-feedback">y<sub>0</sub> is required</div>
+                            </div>
+                        </div>
+                        <!--endregion-->
+
+                        <!--region (x1, y1)-->
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="x1" class="form-control"
+                                       placeholder="'Value of x1"
+                                       v-model.number="x1" required>
+                                <label for="x1">Value of x<sub>1</sub></label>
+                                <div class="invalid-feedback">x<sub>1</sub> is required</div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="y1" class="form-control"
+                                       placeholder="'Value of y1"
+                                       v-model.number="y1" required>
+                                <label for="y1">Value of y<sub>1</sub></label>
+                                <div class="invalid-feedback">y<sub>1</sub> is required</div>
+                            </div>
+
+                        </div>
+                        <!--endregion-->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h2>Window Co-ordinates</h2>
+                <div class="input-form">
+                    <div class="form-label-group row">
+                        <!--region (xMin, yMin)-->
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="xMin" class="form-control"
+                                       placeholder="'Value of xMin"
+                                       v-model.number="xMin" required>
+                                <label for="xMin">Value of x<sub>Min</sub></label>
+                                <div class="invalid-feedback">x<sub>Min</sub> is required</div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="yMin" class="form-control"
+                                       placeholder="'Value of yMin"
+                                       v-model.number="yMin" required>
+                                <label for="yMin">Value of y<sub>Min</sub></label>
+                                <div class="invalid-feedback">y<sub>Min</sub> is required</div>
+                            </div>
+                        </div>
+                        <!--endregion-->
+
+                        <!--region (xMax, yMax)-->
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="xMax" class="form-control"
+                                       placeholder="'Value of xMax"
+                                       v-model.number="xMax" required>
+                                <label for="xMax">Value of x<sub>Max</sub></label>
+                                <div class="invalid-feedback">x<sub>Max</sub> is required</div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="yMax" class="form-control"
+                                       placeholder="'Value of yMax"
+                                       v-model.number="yMax" required>
+                                <label for="yMax">Value of y<sub>Max</sub></label>
+                                <div class="invalid-feedback">y<sub>Max</sub> is required</div>
+                            </div>
+
+                        </div>
+                        <!--endregion-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-primary" v-on:click="check">Check</button>
+            </div>
+
+            <div class="col">
+                {% verbatim %}
+                <p class="lead text-info bg-dark rounded p-1 pl-2">{{ output }}</p>
+                {% endverbatim %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/javascripts/Chart.bundle.js"></script>
+    <script src="/javascripts/clipping/cohen.js"></script>
+{% endblock %}
