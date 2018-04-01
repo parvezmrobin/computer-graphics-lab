@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 
-router.get('/shape', function(req, res, next) {
-    res.render('transformation/shape', { title: 'Computer Graphics Lab' });
+router.get('/lab-work', function(req, res, next) {
+    res.render('transformation/lab-work', { title: 'Computer Graphics Lab' });
 });
 
 router.get('/rotation', function(req, res, next) {
