@@ -10,4 +10,8 @@ router.get('/clipping/line', function (req, res, next) {
     res.render('clipping/line', {title: 'Computer Graphics Lab'});
 });
 
+router.get('/clipping/polygon', function (req, res, next) {
+    res.render('clipping/polygon', {title: 'Computer Graphics Lab'});
+});
+
 module.exports = router;
