@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+hr {
+    border-top: .25rem inset var(--cyan);
+}
+
+.form-control {
+    border-color: var(--cyan);
+}

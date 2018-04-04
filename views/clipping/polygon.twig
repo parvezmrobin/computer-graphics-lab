@@ -1,0 +1,124 @@
+{% extends '../layouts/app.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="text-center text-primary my-3">Polygon Clipping</h1>
+    </div>
+
+    <!--suppress ALL -->
+    <div class="card card-body border-info">
+        <div class="container" id="vm" xmlns:v-on="http://www.w3.org/1999/xhtml">
+            <div class="row">
+                <div class="col">
+                    <h3 class="px-3 card-header bg-info text-light">Line Points</h3>
+                    <div class="input-form">
+                        <!--region Points-->
+                        <div class="form-label-group row" v-for="(p, i) in points">
+                            {% verbatim %}
+                                    <div class="col-md-6">
+                                        <input type="number" :id="'x' + i" class="form-control"
+                                               :placeholder="'Value of x' + i"
+                                               v-model.number="p.x" required>
+                                        <label :for="'x' + i">Value of x<sub>{{i}}</sub></label>
+                                        <div class="invalid-feedback">x<sub>{{i}}</sub> is required</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" :id="'y' + i" class="form-control"
+                                               :placeholder="'Value of y' + i"
+                                               v-model.number="p.y" required>
+                                        <label :for="'y' + i">Value of y<sub>{{i}}</sub></label>
+                                        <div class="invalid-feedback">y<sub>{{i}}</sub> is required</div>
+                                    </div>
+                                    {% endverbatim %}
+                        </div>
+                        <!--endregion-->
+                    </div>
+                </div>
+
+                <div class="col">
+                    <h3 class="px-3 card-header bg-info text-light">Window Co-ordinates</h3>
+                    <div class="input-form">
+
+                        <!--region (xMin, yMin)-->
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="xMin" class="form-control"
+                                       placeholder="'Value of xMin"
+                                       v-model.number="xMin" required>
+                                <label for="xMin">Value of x<sub>min</sub></label>
+                                <div class="invalid-feedback">x<sub>min</sub> is required</div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="yMin" class="form-control"
+                                       placeholder="'Value of yMin"
+                                       v-model.number="yMin" required>
+                                <label for="yMin">Value of y<sub>min</sub></label>
+                                <div class="invalid-feedback">y<sub>min</sub> is required</div>
+                            </div>
+                        </div>
+                        <!--endregion-->
+
+                        <!--region (xMax, yMax)-->
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="xMax" class="form-control"
+                                       placeholder="'Value of xMax"
+                                       v-model.number="xMax" required>
+                                <label for="xMax">Value of x<sub>max</sub></label>
+                                <div class="invalid-feedback">x<sub>max</sub> is required</div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="yMax" class="form-control"
+                                       placeholder="'Value of yMax"
+                                       v-model.number="yMax" required>
+                                <label for="yMax">Value of y<sub>max</sub></label>
+                                <div class="invalid-feedback">y<sub>max</sub> is required</div>
+                            </div>
+
+                        </div>
+                        <!--endregion-->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 d-flex">
+                    <button type="button" class="btn btn-outline-primary btn-lg mx-auto" v-on:click="draw">Draw</button>
+                </div>
+                <div class="col-6 d-flex">
+                    <button type="button" class="btn btn-outline-primary btn-lg mx-auto" v-on:click="clip">Clip</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg">
+                <canvas id="canvas0"></canvas>
+            </div>
+            <div class="col-lg">
+                <canvas id="canvas1"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg">
+                <canvas id="canvas2"></canvas>
+            </div>
+            <div class="col-lg">
+                <canvas id="canvas3"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <canvas id="canvas4"></canvas>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/javascripts/Chart.bundle.js"></script>
+    <script src="/javascripts/clipping/polygon.js"></script>
+{% endblock %}
