@@ -1,0 +1,10 @@
+{
+    "/javascripts/clipping/polygon.js": "/javascripts/clipping/polygon.js",
+    "/javascripts/clipping/line.js": "/javascripts/clipping/line.js",
+    "/javascripts/scan/line.js": "/javascripts/scan/line.js",
+    "/javascripts/scan/circle.js": "/javascripts/scan/circle.js",
+    "/javascripts/app.js": "/javascripts/app.js",
+    "/stylesheets/app.css": "/stylesheets/app.css",
+    "/javascripts/transformation/rotation.js": "/javascripts/transformation/rotation.js",
+    "/javascripts/transformation/lab-work.js": "/javascripts/transformation/lab-work.js"
+}

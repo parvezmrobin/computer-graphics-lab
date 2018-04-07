@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
-    <link rel="stylesheet" href="/stylesheets/bootstrap-grid.css">
-    <link rel="stylesheet" href="/stylesheets/floating-labels.css">
-    <link rel="stylesheet" href="/stylesheets/matrix.css">
-    <link rel="stylesheet" href="/stylesheets/sticky-footer.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    {% block style %} {% endblock %}
 </head>
 <body>
 
@@ -18,10 +14,7 @@
 
 {% include '../partials/footer.twig' %}
 
-<script src="/javascripts/jquery-3.3.1.js"></script>
-<script src="/javascripts/bootstrap.bundle.js"></script>
-<script src="/javascripts/bootstrap.js"></script>
-<script src="/javascripts/vue.js"></script>
+<script src="/javascripts/app.js"></script>
 <script>
     $(document).ready(function () {
         $('#year').text('© ' + (new Date()).getFullYear())
