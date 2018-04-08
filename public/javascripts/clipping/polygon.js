@@ -42939,6 +42939,19 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         numPoints: 4
     },
     methods: {
+        changeNumPoints: function changeNumPoints() {
+            var diff = this.numPoints - this.points.length;
+
+            if (diff > 0) {
+                for (var i = 0; i < diff; i++) {
+                    this.points.push({ x: undefined, y: undefined });
+                }
+            } else {
+                for (var _i = 0; _i < -diff; _i++) {
+                    this.points.pop();
+                }
+            }
+        },
         clipBy: function clipBy(p, pNext, a, b) {
             console.log("    Clipping (" + p.x + ", " + p.y + ") and (" + pNext.x + ", " + pNext.y + ")");
             var c = this.isLeftOf(p, a, b);

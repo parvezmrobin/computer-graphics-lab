@@ -6,6 +6,8 @@
         <h1 class="text-center text-primary my-3">Polygon Clipping</h1>
     </div>
 
+
+
     <!--suppress ALL -->
     <div class="card card-body border-info">
         <div class="container" id="vm" xmlns:v-on="http://www.w3.org/1999/xhtml">
@@ -13,6 +15,16 @@
                 <div class="col">
                     <h3 class="px-3 card-header bg-info text-light">Line Points</h3>
                     <div class="input-form">
+                        <div class="form-label-group row">
+                            <div class="col-md-6">
+                                <input type="number" id="numPoints" class="form-control"
+                                       v-model.number="numPoints" required>
+                                <label for="numPoints">Value of numPoints</label>
+                            </div>
+                            <div class="col-md-6 d-inline-flex align-items-center justify-content-end">
+                                <button type="button" class="btn btn-primary" v-on:click="changeNumPoints">Change</button>
+                            </div>
+                        </div>
                         <!--region Points-->
                         <div class="form-label-group row" v-for="(p, i) in points">
                             {% verbatim %}

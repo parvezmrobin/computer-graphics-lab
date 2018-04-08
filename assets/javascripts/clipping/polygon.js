@@ -110,6 +110,19 @@ new Vue({
         numPoints: 4
     },
     methods: {
+        changeNumPoints: function () {
+            const diff = this.numPoints - this.points.length;
+
+            if (diff > 0) {
+                for (let i = 0; i<diff; i++) {
+                    this.points.push({x: undefined, y: undefined});
+                }
+            } else {
+                for (let i = 0; i<-diff; i++) {
+                    this.points.pop();
+                }
+            }
+        },
         clipBy: function (p, pNext, a, b) {
             console.log(`    Clipping (${p.x}, ${p.y}) and (${pNext.x}, ${pNext.y})`);
             const c = this.isLeftOf(p, a, b);
