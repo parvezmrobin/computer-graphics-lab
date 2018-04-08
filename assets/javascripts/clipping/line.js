@@ -1,4 +1,5 @@
 import Chart from "chart.js";
+import Vue from "vue";
 
 window.chartColors = {
     red: 'rgb(255, 99, 132)',
@@ -28,7 +29,7 @@ let data = {
     datasets: [line, windowPoints]
 };
 
-loadChart = function () {
+const loadChart = function () {
     const plane = document.getElementById("canvas").getContext('2d');
     window.chart = Chart.Line(plane, {
         data: data,
